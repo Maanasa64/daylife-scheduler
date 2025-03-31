@@ -13,7 +13,7 @@ An AI-powered daily schedule generator that syncs with your calendar, helping yo
 - Python 3.9+
 - Node.js 16+
 - Pipenv
-- DeepSeek API key
+- Grok API key
 
 ## Setup Instructions 🛠️
 
