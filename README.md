@@ -4,7 +4,7 @@ An AI-powered daily schedule generator that syncs with your calendar, helping yo
 
 ## Features ✨
 - Generates optimized daily schedules based on your goals
-- Integrates with DeepSeek AI for smart scheduling
+- Integrates with Grok AI for smart scheduling
 - Responsive React frontend
 - FastAPI backend with CORS support
 - Easy calendar export
