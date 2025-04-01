@@ -78,7 +78,6 @@ async def generate_schedule(request: ScheduleRequest):
             )
         response.raise_for_status()
         
-        # Parse response with better validation
         groq_response = response.json()
         if not groq_response.get('choices'):
             raise ValueError("Invalid response format from Groq API")
@@ -133,7 +132,6 @@ async def export_calendar(schedule: list[dict]):
     
     for item in schedule:
         try:
-            # Parse times with proper AM/PM handling
             start_dt = datetime.datetime.strptime(
                 f"{datetime.date.today()} {item['start_time']}", 
                 "%Y-%m-%d %I:%M %p"
@@ -151,9 +149,8 @@ async def export_calendar(schedule: list[dict]):
             )
             cal.events.add(event)
         except ValueError as e:
-            continue  # Skip invalid time formats
+            continue
     
-    # Set proper headers for ICS download
     return PlainTextResponse(
         str(cal),
         media_type="text/calendar",
