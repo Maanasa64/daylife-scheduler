@@ -9,7 +9,7 @@ load_dotenv()
 
 app = FastAPI()
 
-# Enable CORS
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:3000"],
@@ -36,7 +36,6 @@ async def generate_schedule(request: ScheduleRequest):
         "User-Agent": "DayLifeScheduler/1.0"
     }
 
-    # Improved prompt formatting
     prompt = f"""Create a detailed daily schedule with these requirements:
     
     Goals: {request.goals}
@@ -57,7 +56,7 @@ async def generate_schedule(request: ScheduleRequest):
     "https://api.groq.com/openai/v1/chat/completions",
     headers=headers,
     json={
-        "model": "llama3-70b-8192",  # ✅ Current recommended model
+        "model": "llama3-70b-8192",
         "messages": [{
             "role": "user",
             "content": prompt
@@ -68,7 +67,6 @@ async def generate_schedule(request: ScheduleRequest):
     timeout=30
 )
         
-        # Enhanced error handling
         if response.status_code == 400:
             error_detail = response.json().get('error', {}).get('message', 'Invalid request')
             raise HTTPException(
@@ -94,11 +92,11 @@ async def generate_schedule(request: ScheduleRequest):
             try:
                 time_range, activity, category = [
                     part.strip() 
-                    for part in line.split('|', 2)  # Split on first 2 pipes only
+                    for part in line.split('|', 2)
                 ]
                 start_time, end_time = [
                     time.strip() 
-                    for time in time_range.split('-', 1)  # Split on first hyphen only
+                    for time in time_range.split('-', 1)
                 ]
                 schedule.append({
                     "start_time": start_time,
@@ -107,7 +105,7 @@ async def generate_schedule(request: ScheduleRequest):
                     "category": category.split(':')[-1].strip().lower()
                 })
             except ValueError as e:
-                continue  # Skip malformed lines
+                continue
                 
         if not schedule:
             raise ValueError("No valid schedule entries found in response")
