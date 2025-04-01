@@ -132,3 +132,29 @@ body {
     border-radius: 4px;
     margin: 20px 0;
   }
+  
+  .schedule-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .export-button {
+    background-color: #0071e3;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .export-button:hover {
+    background-color: #0062c3;
+  }
+  
+  .export-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }

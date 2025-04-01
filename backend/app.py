@@ -1,9 +1,12 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import PlainTextResponse
 from pydantic import BaseModel
 import requests
 import os
 from dotenv import load_dotenv
+from ics import Calendar, Event
+import datetime
 
 load_dotenv()
 
@@ -122,6 +125,42 @@ async def generate_schedule(request: ScheduleRequest):
             status_code=500,
             detail=f"Internal server error: {str(e)}"
         )
+    
+@app.post("/export-calendar")
+async def export_calendar(schedule: list[dict]):
+    """Convert schedule to Apple Calendar format"""
+    cal = Calendar()
+    
+    for item in schedule:
+        try:
+            # Parse times with proper AM/PM handling
+            start_dt = datetime.datetime.strptime(
+                f"{datetime.date.today()} {item['start_time']}", 
+                "%Y-%m-%d %I:%M %p"
+            )
+            end_dt = datetime.datetime.strptime(
+                f"{datetime.date.today()} {item['end_time']}", 
+                "%Y-%m-%d %I:%M %p"
+            )
+            
+            event = Event(
+                name=item["activity"],
+                begin=start_dt,
+                end=end_dt,
+                description=f"Category: {item['category']}"
+            )
+            cal.events.add(event)
+        except ValueError as e:
+            continue  # Skip invalid time formats
+    
+    # Set proper headers for ICS download
+    return PlainTextResponse(
+        str(cal),
+        media_type="text/calendar",
+        headers={
+            "Content-Disposition": "attachment; filename=daily_schedule.ics"
+        }
+    )
 
 @app.get("/")
 async def root():
