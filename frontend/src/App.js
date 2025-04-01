@@ -34,18 +34,32 @@ function App() {
           preferred_bedtime: formData.bedtime
         }),
       });
+  
+      const data = await response.json();
       
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.detail || 'Failed to generate schedule');
+        // Enhanced error parsing
+        const errorDetail = data.detail || 
+          (data.error ? JSON.stringify(data.error) : 'Unknown error');
+        throw new Error(`Server error: ${response.status} - ${errorDetail}`);
       }
       
-      const data = await response.json();
+      if (!data.schedule || !Array.isArray(data.schedule)) {
+        throw new Error('Invalid schedule format received from server');
+      }
+      
       setSchedule(data.schedule);
       
     } catch (err) {
       setError(err.message);
-      console.error('API Error:', err);
+      console.error('API Request Failed:', {
+        error: err.message,
+        request: {
+          goals: formData.goals,
+          constraints: formData.constraints
+        },
+        timestamp: new Date().toISOString()
+      });
     } finally {
       setLoading(false);
     }
