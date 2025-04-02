@@ -1,4 +1,3 @@
-/* frontend/src/App.css */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
@@ -132,7 +131,7 @@ body {
     border-radius: 4px;
     margin: 20px 0;
   }
-  
+
   .schedule-header {
     display: flex;
     justify-content: space-between;

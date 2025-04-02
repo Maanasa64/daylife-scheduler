@@ -1,25 +1,57 @@
 # DayLife Scheduler 🗓️⏳
 
-An AI-powered daily schedule generator that syncs with your calendar, helping you balance job applications, fitness, coding practice, and classes.
+An AI-powered daily schedule generator that creates optimized routines and exports them directly to your calendar.
 
-## Features ✨
-- Generates optimized daily schedules based on your goals
-- Integrates with Grok AI for smart scheduling
-- Responsive React frontend
-- FastAPI backend with CORS support
-- Easy calendar export
+![Schedule Generator Interface](/Users/maana/Documents/Calendar Syncer/screenshots/cal_scheduler_ss1.png)
+![Calendar Export](/Users/maana/Documents/Calendar Syncer/screenshots/cal_scheduler_ss2.png)
 
-## Prerequisites 📋
+
+## Key Features ✨
+
+- 🧠 **AI-Powered Scheduling** - Uses Groq's ultra-fast LLMs to generate optimal daily plans
+- 📅 **Calendar Integration** - One-click export to Apple/Google Calendar via ICS files
+- ⚡ **FastAPI Backend** - Robust Python backend with async support
+- 🎨 **React Frontend** - Modern, responsive user interface
+- 🔄 **CORS Support** - Seamless frontend-backend communication
+
+## Tech Stack 🛠️
+
+| Component       | Technology |
+|-----------------|------------|
+| Frontend        | React 18   |
+| Backend         | FastAPI    |
+| AI Integration  | Groq API   |
+| Calendar Export | ICS format |
+| Package Manager | Pipenv     |
+
+## Setup Guide 🚀
+
+### Prerequisites
+
 - Python 3.9+
 - Node.js 16+
-- Pipenv
-- Grok API key
+- Groq API key ([get one here](https://console.groq.com/keys))
+- Pipenv (`pip install pipenv`)
 
-## Setup Instructions 🛠️
+### Backend Installation
 
-### 1. Backend Setup
-```bash
+```
 cd backend
+
+pip install -r requirements.txt
+
 pipenv install
-echo "GROK_API_KEY=your_api_key_here" > .env
-pipenv run python app.py
+pipenv install ics python-dotenv requests fastapi uvicorn
+
+echo "GROQ_API_KEY=your_api_key_here" > .env
+
+pipenv run uvicorn app:app --reload
+```
+
+### Frontend Installation
+
+```
+cd ../frontend
+npm install
+npm start
+```
