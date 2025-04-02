@@ -2,8 +2,9 @@
 
 An AI-powered daily schedule generator that creates optimized routines and exports them directly to your calendar.
 
-![Schedule Generator Interface](/Users/maana/Documents/Calendar Syncer/screenshots/cal_scheduler_ss1.png)
-![Calendar Export](/Users/maana/Documents/Calendar Syncer/screenshots/cal_scheduler_ss2.png)
+![Schedule Generator Interface](/screenshots/cal_scheduler_ss1.png)
+
+![Calendar Export](/screenshots/cal_scheduler_ss2.png)
 
 
 ## Key Features ✨
