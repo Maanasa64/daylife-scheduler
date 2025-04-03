@@ -41,7 +41,6 @@ cd backend
 
 pip install -r requirements.txt
 
-pipenv install
 pipenv install ics python-dotenv requests fastapi uvicorn
 
 echo "GROQ_API_KEY=your_api_key_here" > .env
